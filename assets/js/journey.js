@@ -299,6 +299,8 @@ function journey_onLoad() {
 	document.getElementById("to").value = (t["to"])?t["to"]:"";
 	document.getElementById("to_text").value = (t["to_text"])?t["to_text"]:"";
 	
+	document.getElementById("traveler_type").value = (t["traveler_type"])?t["traveler_type"]:"";
+	
 	if (t["debug"]=="on"){document.getElementById("debug").checked="true";}
 	if (t["max_duration_to_pt"]){document.getElementById("max_duration_to_pt").value=t["max_duration_to_pt"];}
 	if (t["date"]) { document.getElementById("date").value=decodeURIComponent(t["date"]);}
@@ -441,6 +443,9 @@ function getItinerary(){
 	if (t["datetime_represents"]) {
 		url+="&datetime_represents="+t["datetime_represents"];
 	}
+	if (t["traveler_type"]) {
+		url+="&traveler_type="+t["traveler_type"];
+	}	
 	if (document.getElementById("max_duration_to_pt").value) {
 		url+="&max_duration_to_pt="+parseInt(document.getElementById("max_duration_to_pt").value)*60;
 	}
