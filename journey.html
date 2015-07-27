@@ -36,7 +36,10 @@
 						</td>
 						<td valign="top" style="font-size:10px">
 							Profil <input type="text" name="traveler_type" id="traveler_type" value=""><br>
-						</td>						
+						</td>
+					</table>
+					<h3 id="toggle_other_params">Paramètres avancés</h3>							
+					<table id="other_params" hidden>
 						<td valign="top">
 							<input type="checkbox" name="debug" id="debug">debug<br>
 							<select name="min_nb_journeys" id="min_nb_journeys">
@@ -60,6 +63,8 @@
 							Scenario <input type="text" name="custom_scenario" id="custom_scenario" value=""><br>
 						</td>
 					</tr>
+					</table>							
+					<table>
 					<tr>
 						<td colspan="3" align="center">
 								<input type="button" value="Recherche (F9)" onclick="document.forms[0].submit();"> &nbsp;

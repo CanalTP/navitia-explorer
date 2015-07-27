@@ -1,4 +1,6 @@
-
+$("#toggle_other_params").click(function(){
+       $("#other_params").toggle();
+});
 
 function GetDateTime() {
 	date = document.getElementById("idate").value;
