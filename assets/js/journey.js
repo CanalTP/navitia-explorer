@@ -308,7 +308,7 @@ function journey_onLoad() {
 	if (t["date"]) { document.getElementById("date").value=decodeURIComponent(t["date"]);}
 	if (t["time"]) { document.getElementById("time").value=decodeURIComponent(t["time"]);}
 	if (t["min_nb_journeys"]){
-		document.getElementById("min_nb_journeys").selectedIndex=parseInt(t["min_nb_journeys"])-1;
+		document.getElementById("min_nb_journeys").value =parseInt(t["min_nb_journeys"]);
 	}
 	if (t["first_section_mode"]){
 		if ( Object.prototype.toString.call( t["first_section_mode"] ) === '[object Array]' ){
@@ -436,8 +436,6 @@ function init_date(sdate, sheure){
 function getItinerary(){
 	//on vérifie si c'est une coordonnée dans le FROM
 	clearMap();
-	select = document.getElementById("min_nb_journeys");
-	journey.min_nb_journeys=select.options[select.options.selectedIndex].value;
 	url="coverage/"+document.getElementById("coverage").value+"/journeys?debug="+document.getElementById("debug").checked+
 		"&from="+document.getElementById("from").value+"&to="+document.getElementById("to").value+
 		"&datetime="+natural_str_to_iso(document.getElementById("date").value,document.getElementById("time").value);
