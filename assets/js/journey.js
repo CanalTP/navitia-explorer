@@ -1,4 +1,6 @@
-
+$("#toggle_other_params").click(function(){
+       $("#other_params").toggle();
+});
 
 function GetDateTime() {
 	date = document.getElementById("idate").value;
@@ -298,13 +300,15 @@ function journey_onLoad() {
 	document.getElementById("from_text").value = (t["from_text"])?t["from_text"]:"";
 	document.getElementById("to").value = (t["to"])?t["to"]:"";
 	document.getElementById("to_text").value = (t["to_text"])?t["to_text"]:"";
+	document.getElementById("max_duration_to_pt").value = (t["max_duration_to_pt"])?t["max_duration_to_pt"]:"";
+	
+	document.getElementById("traveler_type").value = (t["traveler_type"])?t["traveler_type"]:"";
 	
 	if (t["debug"]=="on"){document.getElementById("debug").checked="true";}
-	if (t["max_duration_to_pt"]){document.getElementById("max_duration_to_pt").value=t["max_duration_to_pt"];}
 	if (t["date"]) { document.getElementById("date").value=decodeURIComponent(t["date"]);}
 	if (t["time"]) { document.getElementById("time").value=decodeURIComponent(t["time"]);}
 	if (t["min_nb_journeys"]){
-		document.getElementById("min_nb_journeys").selectedIndex=parseInt(t["min_nb_journeys"])-1;
+		document.getElementById("min_nb_journeys").value =parseInt(t["min_nb_journeys"]);
 	}
 	if (t["data_freshness"]){
 		document.getElementById("data_freshness").value=t["data_freshness"];
@@ -435,8 +439,6 @@ function init_date(sdate, sheure){
 function getItinerary(){
 	//on vérifie si c'est une coordonnée dans le FROM
 	clearMap();
-	select = document.getElementById("min_nb_journeys");
-	journey.min_nb_journeys=select.options[select.options.selectedIndex].value;
 	url="coverage/"+document.getElementById("coverage").value+"/journeys?debug="+document.getElementById("debug").checked+
 		"&from="+document.getElementById("from").value+"&to="+document.getElementById("to").value+
 		"&datetime="+natural_str_to_iso(document.getElementById("date").value,document.getElementById("time").value);
@@ -444,9 +446,12 @@ function getItinerary(){
 	if (t["datetime_represents"]) {
 		url+="&datetime_represents="+t["datetime_represents"];
 	}
+	if (t["traveler_type"]) {
+		url+="&traveler_type="+t["traveler_type"];
+	}	
 	if (document.getElementById("max_duration_to_pt").value) {
 		url+="&max_duration_to_pt="+parseInt(document.getElementById("max_duration_to_pt").value)*60;
-	}
+	} 
 	if (journey.first_section_mode_list) {
 		for (i = 0; i < journey.first_section_mode_list.length; i++){
 			var mode = journey.first_section_mode_list[i];
