@@ -110,6 +110,10 @@ section.second_half {
     color: #EA6612  ;
     font-weight:700;
 }
+.item .id {
+    color: #888888  ;
+    font-weight:600;
+}
 .item .title small { font-weight:400; }
 .item.active .title,
 .item .title:hover { color:#BAB431; }

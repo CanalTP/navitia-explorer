@@ -111,6 +111,7 @@ function getNewURI(changed_uri, keep_current, current_id) {
     new_uri = "";
     for (i in params) {
         p = params[i];
+        if (p == "") continue;
         if (p.split('=')[0] != 'uri'){
             new_uri += p.split('=')[0] + "=" + p.split('=')[1]+"&";
         } else {
@@ -157,7 +158,7 @@ function showNetworksHtml(){
         var item = ptref_div.appendChild(document.createElement('div'));
         item.className = 'item';
         item.innerHTML = "<a class='title'>" + n.name + "</a>";
-        item.innerHTML += "<small>" + n.id + "</small>";
+        item.innerHTML += pt_item_id_to_html(n.id);
         item.innerHTML += "<br><a href='"+getNewURI('/physical_modes/', true, n.id)+"' > Modes Ph </a>"
         item.innerHTML += "- <a href='"+getNewURI('/commercial_modes/', true, n.id)+"' >Modes co </a>"
         item.innerHTML += "- <a href='"+getNewURI('/lines/', true, n.id)+"' > Lignes </a>"
@@ -177,7 +178,8 @@ function showContributorsHtml(){
         var item = ptref_div.appendChild(document.createElement('div'));
         item.className = 'item';
         item.innerHTML = "<a class='title'>" + n.name + "</a>";
-        item.innerHTML += "<small>" + n.id + "</small><br>";
+        item.innerHTML += pt_item_id_to_html(n.id);
+        item.innerHTML += "<br>";
         item.innerHTML += "<small>licence : " + ((n.license)?n.license : "pas de licence") + "</small>";
         item.innerHTML += "<br><a href='"+getNewURI('/datasets/', true, n.id)+"' > Datasets </a>"
         item.innerHTML += "- <a href='"+getNewURI('/networks/', true, n.id)+"' > Réseaux </a>"
@@ -197,7 +199,8 @@ function showDatasetsHtml(){
         var item = ptref_div.appendChild(document.createElement('div'));
         item.className = 'item';
         item.innerHTML = "<a class='title'>" + n.description + "</a>";
-        item.innerHTML += "<small>" + n.id + "</small><br>";
+        item.innerHTML += pt_item_id_to_html(n.id);
+        item.innerHTML += "<br>";
         item.innerHTML += "<small>" + NavitiaDateTimeToString(n.start_validation_date, "dd/mm/yyyy") + " - " + NavitiaDateTimeToString(n.end_validation_date, "dd/mm/yyyy") + "</small><br>";
         item.innerHTML += "<small>Type (TH / AD) : " + n.realtime_level + "</small>";
         item.innerHTML += "<br><a href='"+getNewURI('/networks/', true, n.id)+"' > Réseaux </a>"
@@ -217,7 +220,8 @@ function showCalendarsHtml(){
       var item = ptref_div.appendChild(document.createElement('div'));
       item.className = 'item';
       item.innerHTML = "<a class='title' title='" + title +"'>" + n.name + "</a>";
-      item.innerHTML += "<small>" + n.id + "</small><br>";
+      item.innerHTML += pt_item_id_to_html(n.id);
+      item.innerHTML += '<br>';
       item.innerHTML += '<small><span title="'+title+'">Voir le contenu</span></small>';
       item.innerHTML += " - <a href='"+getNewURI('/lines/', true, n.id)+"' > Lignes </a>"
     }
@@ -348,7 +352,7 @@ function showModesHtml(){
         var item = ptref_div.appendChild(document.createElement('div'));
         item.className = 'item';
         item.innerHTML = "<a class='title'>" + n.name + "</a>";
-        item.innerHTML += "<small>" + n.id + "</small>";
+        item.innerHTML += pt_item_id_to_html(n.id);
         item.innerHTML += "<br><a href='"+getNewURI('/lines/', true, n.id)+"' > Lignes </a>"
         worst_disruption = getWorstDisruption(n.links);
         item.innerHTML += getSeverityIcon(worst_disruption);
@@ -482,10 +486,15 @@ function showPOIsHtml(){
 
 }
 
+function pt_item_id_to_html(pt_item_id){
+    html = "<small>" + "<a class='id' href='"+getNewURI("", true, n.id)+"' >" + n.id + "</a>" + "</small>";
+    return html;
+}
+
 function pt_point_item_to_html(html_elem, pt_info){
   html_elem.className = 'item';
   html_elem.innerHTML = "<a class='title' id='item_"+pt_info.id+"' onclick='zoom_to_item("+pt_info.lat+","+pt_info.lon+", \""+pt_info.id +"\")'>" + pt_info.label + "</a>";
-  html_elem.innerHTML += "<small>" + pt_info.id + "</small><br>";
+  html_elem.innerHTML += pt_item_id_to_html(pt_info.id) + "<br>";
   for (var a_link in pt_info.explo_links){
     html_elem.innerHTML += " <a href='"+pt_info.explo_links[a_link]+"' > "+ a_link +" </a> -"
   }
@@ -530,7 +539,7 @@ function showPoiTypesHtml(){
         var item = ptref_div.appendChild(document.createElement('div'));
         item.className = 'item';
         item.innerHTML = "<a class='title'>" + n.name + "</a>";
-        item.innerHTML += "<small>" + n.id + "</small>";
+        item.innerHTML += pt_item_id_to_html(n.id);
         item.innerHTML += "<br><a href='"+getNewURI('/pois/', true, n.id)+"' > POIs </a>"
     }
 }
@@ -653,7 +662,6 @@ function showLinesHtml(){
         var item = ptref_div.appendChild(document.createElement('div'));
         item.className = 'item';
         item.innerHTML = "<a class='title' id='item_"+n.id+"' onclick='setActive(this)'><span class='icon-ligne' style='background-color: #"+n.color+";'>"+n.code + "</span> : " + n.name + "</a>";
-        item.innerHTML += "<small>" + n.id + "</small>";
         item.innerHTML += "<br><a href='"+getNewURI('/physical_modes/', true, n.id)+"' > Modes Ph </a>"
         item.innerHTML += "- <a href='"+getNewURI('/commercial_modes/', true, n.id)+"' >Modes co </a>"
         item.innerHTML += "- <a href='"+getNewURI('/calendars/', true, n.id)+"' > Calendriers </a>"
@@ -724,7 +732,7 @@ function showRoutesHtml(){
         var item = ptref_div.appendChild(document.createElement('div'));
         item.className = 'item';
         item.innerHTML = "<a class='title' id='item_"+n.id+"' onclick='setActive(this)'><span class='icon-ligne' style='background-color: #"+n.line.color+";'>"+n.line.code + "</span> : " + n.name + "</a>";
-        item.innerHTML += "<small>" + n.id + "</small>";
+        item.innerHTML += pt_item_id_to_html(n.id);
         item.innerHTML += "<br><a href='"+getNewURI('/stop_points/', true, n.id)+"' > Points d'arrêts </a>"
         item.innerHTML += "- <a href='"+getNewURI('/stop_areas/', true, n.id)+"' > Zones d'arrêts </a>"
         item.innerHTML += "- <a href='"+getNewURI('/vehicle_journeys/', true, n.id)+"' > Circulations </a>"
