@@ -303,9 +303,9 @@ function journey_onLoad() {
     document.getElementById("max_duration_to_pt").value = (t["max_duration_to_pt"])?t["max_duration_to_pt"]:"";
     document.getElementById("metasystem").checked = (t["metasystem"])?t["metasystem"]=="on":false;
     document.getElementById("metasystem_token").value = (t["metasystem_token"])?t["metasystem_token"]:""    ;
-    
+
     document.getElementById("traveler_type").value = (t["traveler_type"])?t["traveler_type"]:"";
-    
+
     if (t["debug"]=="on"){document.getElementById("debug").checked="true";}
     if (t["date"]) { document.getElementById("date").value=decodeURIComponent(t["date"]);}
     if (t["time"]) { document.getElementById("time").value=decodeURIComponent(t["time"]);}
@@ -361,11 +361,31 @@ function journey_onLoad() {
     document.getElementById("custom_scenario").value = (t["custom_scenario"])?t["custom_scenario"]:"";
 
 
-    map = L.map('map-canvas').setView([48.837212, 2.413], 8);
     // add an OpenStreetMap tile layer
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    });
+    var mono = L.tileLayer('http://www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    });
+    var canalhacked = L.tileLayer('http://tiles.local/osm_tiles/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    });
+
+    map = L.map('map-canvas', {
+        center:[48.837212, 2.413],
+        zoom: 8,
+        layers: [osm]
+    });
+    // add control
+    var baseMaps = {
+         "Normal": osm,
+         "Noir et blanc": mono,
+         "Canal Hacké": canalhacked
+    };
+    var overlayMaps = {};
+    L.control.layers(baseMaps, overlayMaps).addTo(map);
+    
     map.on('click', onMapClick);
     L.control.scale().addTo(map);
 
@@ -392,7 +412,7 @@ function show_depart_list(){
         select.add(option);
     }
 }
-    
+
 function show_arrivee_list(){
     select = document.getElementById('iarrivee_list');
     while (select.options.length >0)
@@ -457,10 +477,10 @@ function getItinerary(){
     }
     if (t["traveler_type"]) {
         url+="&traveler_type="+t["traveler_type"];
-    }    
+    }
     if (document.getElementById("max_duration_to_pt").value) {
         url+="&max_duration_to_pt="+parseInt(document.getElementById("max_duration_to_pt").value)*60;
-    } 
+    }
     if (journey.first_section_mode_list) {
         for (i = 0; i < journey.first_section_mode_list.length; i++){
             var mode = journey.first_section_mode_list[i];
@@ -483,24 +503,24 @@ function getItinerary(){
     if (custom_scenario) {
         url+="&_override_scenario="+custom_scenario
     }
-    
+
     data_freshness = document.getElementById("data_freshness").value
     if (data_freshness) {
         url += "&data_freshness=" + data_freshness
     }
-    
+
     forced_token = "";
     if ($('#metasystem')[0].checked) {
         if ($('#metasystem_token')[0].value != "") {
             forced_token = $('#metasystem_token')[0].value;
         }
     }
-    
+
     callNavitiaJS(document.getElementById("ws_name").value, url, forced_token, function(response){
         journey.journey_list=response.journeys;
         if (response.message) {
             journey.journey_error = {
-                'id' : '(aucun id navitia)', 
+                'id' : '(aucun id navitia)',
                 'message' : response.message
             };
         } else {
@@ -510,7 +530,7 @@ function getItinerary(){
         getJourneyListHtml();
     });
 }
-    
+
 function submit_monday_search(){
     d= new Date();
     while (d.getDay()!=1) {d.setDate(d.getDate() + 1);}
@@ -553,7 +573,7 @@ $(document).ready(function(){
             document.getElementById("from").value = ui.item.id;
         }
    });
-   
+
 /* Arrivée */
    $( "#to_text" ).autocomplete({
         source: getAutoComplete,
@@ -567,5 +587,5 @@ $(document).ready(function(){
         if ($('#metasystem')[0].checked) {
             $("#metasystem_token")[0].enabled = $('#metasystem')[0].checked;
         }
-    });    
+    });
 });

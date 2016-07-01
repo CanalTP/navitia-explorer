@@ -837,7 +837,7 @@ function ptref_onLoad(){
     if (t["f"]) {
         uri += "filter=" + t["f"] + "&";
     }
-    
+
     var object_type = showAriane(uri);
 
     //on crée les éléments complémentaires du formulaire si besoin
@@ -867,6 +867,11 @@ function ptref_onLoad(){
     var mono = L.tileLayer('http://www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     });
+    var canalhacked = L.tileLayer('http://tiles.local/osm_tiles/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    });
+
+
 
     map = L.map('map-canvas', {
         center:[48.837212, 2.413],
@@ -877,7 +882,8 @@ function ptref_onLoad(){
     // add control
     var baseMaps = {
          "Normal": osm,
-         "Noir et blanc": mono
+         "Noir et blanc": mono,
+         "Canal Hacké": canalhacked
     };
     var overlayMaps = {};
     L.control.layers(baseMaps, overlayMaps).addTo(map);
