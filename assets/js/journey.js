@@ -368,7 +368,7 @@ function journey_onLoad() {
     var mono = L.tileLayer('http://www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     });
-    var canalhacked = L.tileLayer('http://tiles.local/osm_tiles/{z}/{x}/{y}.png', {
+    var canalhacked = L.tileLayer('http://10.50.81.112/osm_tiles/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     });
 
@@ -385,7 +385,7 @@ function journey_onLoad() {
     };
     var overlayMaps = {};
     L.control.layers(baseMaps, overlayMaps).addTo(map);
-    
+
     map.on('click', onMapClick);
     L.control.scale().addTo(map);
 

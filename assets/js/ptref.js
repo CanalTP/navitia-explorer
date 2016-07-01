@@ -867,7 +867,7 @@ function ptref_onLoad(){
     var mono = L.tileLayer('http://www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     });
-    var canalhacked = L.tileLayer('http://tiles.local/osm_tiles/{z}/{x}/{y}.png', {
+    var canalhacked = L.tileLayer('http://10.50.81.112/osm_tiles/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     });
 
