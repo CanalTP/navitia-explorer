@@ -59,6 +59,10 @@ ul li a:hover {
     border-width:1px;
 }
 
+img.navitia-explorer{
+    height:60px;
+}
+
 footer{
     height:60px;
     padding-top: 60px;
