@@ -148,14 +148,18 @@ function showPlaces(response){
             var place = response.places[i];
             str+= "<td>"+place.embedded_type+"</td>";
             switch (place.embedded_type) {
-                case "administrative_region" : 
+                case "administrative_region" :
                     str+= "<td>" + place.name + "</td>";
                     break;
-                case "stop_area" : 
+                case "stop_area" :
                     str+= "<td><a href='ptref.html?"+"&ws_name="+document.getElementById("ws_name").value+
                         "&coverage="+document.getElementById("coverage").value+"&uri=/stop_areas/"+place.id + "/'>" + place.name + "</a></td>";
                     break;
-                case "address" : 
+                case "stop_point" :
+                    str+= "<td><a href='ptref.html?"+"&ws_name="+document.getElementById("ws_name").value+
+                        "&coverage="+document.getElementById("coverage").value+"&uri=/stop_points/"+place.id + "/'>" + place.name + "</a></td>";
+                    break;
+                case "address" :
                     str+= "<td>" + place.name + " ("+ place.id + ")" + "</td>";
                     break;
                 default:
@@ -201,4 +205,3 @@ var map;
 var places;
 var placesBounds=false;
 var popup = L.popup();
-
