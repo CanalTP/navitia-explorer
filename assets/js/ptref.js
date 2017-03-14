@@ -867,6 +867,12 @@ function ptref_onLoad(){
     var mono = L.tileLayer('http://www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     });
+    var blossom = L.tileLayer('http://vip-plan-ihm.mutu.prod.canaltp.fr/blossom/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    });
+    var osm_bright = L.tileLayer('http://vip-plan-ihm.mutu.prod.canaltp.fr/osm_bright/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    });
     var admin = L.tileLayer('http://korona.geog.uni-heidelberg.de/tiles/adminb/x={x}&y={y}&z={z}', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     });
@@ -881,7 +887,9 @@ function ptref_onLoad(){
     var baseMaps = {
          "Normal": osm,
          "Noir et blanc": mono,
-         "Zones admin": admin
+         "Zones admin": admin,
+         "Blossom": blossom,
+         "Osm Bright": osm_bright
     };
     var overlayMaps = {};
     L.control.layers(baseMaps, overlayMaps).addTo(map);
