@@ -12,8 +12,8 @@ function init_date(sdate, sheure){
 
     r_heure=""
     if (!sheure || sheure==""){
-        h=d.getHours();
-        m=d.getMinutes();
+        h=4;
+        m=0;
         r_heure+= (h<10)?"0"+h:h;
         r_heure+= "h";
         r_heure+= (m<10)?"0"+m:m;
@@ -35,7 +35,7 @@ function getNetworkSelect(){
                 selected_exists = true;
                 selected = " selected ";
             }
-            str+= "<option " + selected+ " value='"+network.id+"'>" + network.name + "</option>";
+            str+= "<option " + selected+ " value='"+network.id+"'>" + network.name + " ("+ network.id+ ")" + "</option>";
         }
         str+="</select>";
         document.getElementById("network_div").innerHTML=str;
@@ -62,7 +62,7 @@ function getLineSelect(){
                         selected_exists = true;
                         selected = " selected ";
                     }
-                    str+= "<option " + selected+ " value='"+line.id+"'>" + line.code + ' - ' + line.name + "</option>";
+                    str+= "<option " + selected+ " value='"+line.id+"'>" + line.code + ' - ' + line.name + " ("+ line.id +")" + "</option>";
                 }
                 str+="</select>";
                 document.getElementById("line_div").innerHTML=str;
@@ -91,7 +91,7 @@ function getRouteSelect(){
                         selected_exists = true;
                         selected = " selected ";
                     }
-                    str+= "<option " + selected+ " value='"+route.id+"'>" + route.name + "</option>";
+                    str+= "<option " + selected+ " value='"+route.id+"'>" + route.name + " ("+ route.id +")" + "</option>";
                 }
                 str+="</select>";
                 document.getElementById("route_div").innerHTML=str;
