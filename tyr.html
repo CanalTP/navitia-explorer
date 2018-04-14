@@ -2,8 +2,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="./assets/css/global.css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" /> 
 </head>
-<body onload="tyr_onLoad(); includeHTML();">
+<body onload="includeHTML();">
     <div id="params_div"></div>
     <form id="form1">
         <div id="menu_div"></div>
@@ -12,6 +13,9 @@
             <div id="params1" style="margin:0px;padding:0px;">
             </div>
             <div id="result" style="width:100%">
+                <div id="table_container">
+                    <table id="table_tyr_job_list" class="display"></table>
+                </div>
                 <div id="div_tyr_job_list" style="width:45%;float:left;" ></div>
             </div>
 
@@ -21,6 +25,9 @@
     <footer include-html="footer.html" class="footer"></footer>
 
     <script type="text/javascript" src="./assets/jquery/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="http://momentjs.com/downloads/moment-timezone-with-data.min.js"></script>
     <script type="text/javascript" src="./assets/js/menu.js"></script>
     <script type="text/javascript" src="./assets/js/lib.js"></script>
     <script type="text/javascript" src="./assets/js/tyr.js"></script>
